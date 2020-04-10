@@ -1,0 +1,46 @@
+/* colour guide:
+b: #375E97
+o: #FB6542
+y: #FFBB00
+g: #3F681C */
+/* ABC fonts */
+@font-face {
+  font-family: "ABCSans Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("ABCSans Regular"), url("./fonts/abcsans-regular.woff") format("woff");
+}
+@font-face {
+  font-family: "ABCSans Black";
+  font-style: normal;
+  font-weight: normal;
+  src: local("ABCSans Black"), url("./fonts/abcsans-black.woff") format("woff");
+}
+:root {
+  font-size: 1em;
+  font-family: "ABCSans Regular", "Arial", sans-serif;
+}
+body {
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#canvas {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+h1, p {
+  margin: 0;
+  padding: 0;
+}
+.title {
+  font-family: "ABCSans Black", "Arial Black", sans-serif;
+  font-size: 3rem;
+  color: #375E97;
+
+}

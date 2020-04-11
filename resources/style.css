@@ -24,7 +24,6 @@ body {
   padding: 1rem;
   position: fixed;
   top: 0;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
@@ -32,15 +31,76 @@ body {
 #canvas {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   text-align: center;
+  align-items: center;
+  opacity: 0;
 }
-h1, p {
+h1, h2, p {
   margin: 0;
-  padding: 0;
 }
-.title {
+h1 {
   font-family: "ABCSans Black", "Arial Black", sans-serif;
   font-size: 3rem;
   color: #375E97;
-
+  margin-bottom: 2rem;
+}
+h2 {
+  opacity: 0;
+  font-family: "ABCSans Black", "Arial Black", sans-serif;
+  font-size: 2rem;
+  color: darkslategrey;
+  margin-bottom: 1rem;
+}
+p {
+  opacity: 0;
+  color: darkslategrey;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+.next {
+  font-family: "ABCSans Black", "Arial Black", sans-serif;
+  font-size: 1.25rem;
+  color: white;
+  padding: .5rem;
+  border-radius: .5rem;
+  margin-top: 1.5rem;
+  background-color: #3F681C;
+  width: 100%;
+  opacity: 0;
+}
+#token {
+  width: 250px;
+  height: 250px;
+  background-color: #FB6542;
+  border-radius: 125px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+#token p {
+  font-family: "ABCSans Black", "Arial Black", sans-serif;
+  font-size: 2.5rem;
+  color: white;
+  opacity: 1;
+}
+.answerField {
+  font-family: "ABCSans Black", "Arial Black", sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  padding: .5rem;
+  border-radius: .5rem;
+  margin-top: 1.5rem;
+  background-color: #3F681C;
+  width: 100%;
+  opacity: 0;
+  text-align: center;
+  outline: none;
+}
+#countDown {
+  font-family: "ABCSans Black", "Arial Black", sans-serif;
+  color: #FB6542;
 }

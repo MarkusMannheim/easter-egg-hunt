@@ -242,7 +242,9 @@
         addTitle("Well done!");
         addPara(praise[Math.floor(Math.random() * praise.length)], 2000);
         clue = clue + 1;
-        addNext("CLICK TO CONTINUE", 4000, checkClue);
+        if (clue < huntData.length) {
+          addNext("CLICK TO CONTINUE", 4000, checkClue);
+        }
       }
 
       function knowledge() {

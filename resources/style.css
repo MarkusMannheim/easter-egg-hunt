@@ -43,14 +43,14 @@ h1, h2, p {
 }
 h1 {
   font-family: "ABCSans Black", "Arial Black", sans-serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #375E97;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 h2 {
   opacity: 0;
   font-family: "ABCSans Black", "Arial Black", sans-serif;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: darkslategrey;
   margin-bottom: 1rem;
 }
@@ -73,17 +73,17 @@ p {
   opacity: 0;
 }
 #token {
-  width: 250px;
-  height: 250px;
+  width: 225px;
+  height: 225px;
   background-color: #FB6542;
-  border-radius: 125px;
+  border-radius: 112.5px;
   display: flex;
   flex-flow: column;
   justify-content: center;
 }
 #token p {
   font-family: "ABCSans Black", "Arial Black", sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: white;
   opacity: 1;
   margin-bottom: 0;
@@ -94,7 +94,7 @@ p {
   color: white;
   padding: .5rem;
   border-radius: .5rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   background-color: #3F681C;
   width: 100%;
   opacity: 0;
@@ -105,29 +105,31 @@ p {
   font-family: "ABCSans Black", "Arial Black", sans-serif;
   color: #FB6542;
 }
-#tokenField {
-  height: 100%;
+.icon svg {
+  fill: #FB6542;
+}
+.imageClue {
   width: 100%;
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
+  display: none;
 }
-.token {
-  width: 200px;
-  height: 200px;
-  background-color: #FB6542;
-  border-radius: 100px;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  margin: 10px;
+.imageClue.selected {
+  display: block;
 }
-.token p {
-  font-family: "ABCSans Black", "Arial Black", sans-serif;
-  font-size: 2rem;
+.clueDiv {
+  opacity: 0;
+}
+.clueToggle {
   color: white;
-  opacity: 1;
-  margin-bottom: 0;
+  padding: 5px;
+  border-radius: .5rem;
+  margin: 1rem 0;
+  background-color: #FB6542;
+  width: 100%;
+  opacity: 0;
+}
+#mapDiv {
+  display: none;
+}
+#mapDiv.selected {
+  display: block;
 }

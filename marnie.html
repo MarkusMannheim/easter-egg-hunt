@@ -214,7 +214,7 @@
       }
 
       function wrongAnswer() {
-        if (mathsTimer) mathsTimer.stop();
+        if (huntData[clue].type == "maths") mathsTimer.stop();
         answerField.node().value = answerField.node().value.toUpperCase();
         answer = answerField.node().value;
         if (answer == huntData[clue].answer) {
@@ -235,7 +235,7 @@
       }
 
       function correctAnswer() {
-        if (mathsTimer) mathsTimer.stop();
+        if (huntData[clue].type == "maths") mathsTimer.stop();
         answerField.node().blur();
         canvas.selectAll("*")
           .remove();

@@ -86,6 +86,7 @@ p {
   font-size: 2.5rem;
   color: white;
   opacity: 1;
+  margin-bottom: 0;
 }
 .answerField {
   font-family: "ABCSans Black", "Arial Black", sans-serif;
@@ -103,4 +104,30 @@ p {
 #countDown {
   font-family: "ABCSans Black", "Arial Black", sans-serif;
   color: #FB6542;
+}
+#tokenField {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.token {
+  width: 200px;
+  height: 200px;
+  background-color: #FB6542;
+  border-radius: 100px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: 10px;
+}
+.token p {
+  font-family: "ABCSans Black", "Arial Black", sans-serif;
+  font-size: 2rem;
+  color: white;
+  opacity: 1;
+  margin-bottom: 0;
 }

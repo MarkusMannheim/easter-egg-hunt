@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Initial scripts -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <link href="./resources/style.css" rel="stylesheet">
+    <link href="./resources/style.css?v2" rel="stylesheet">
     <link href="./resources/images/favIcon.png" rel="icon">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
@@ -29,7 +29,7 @@
     <div id="canvas"></div>
 
     <script>
-      d3.csv("./resources/dataMarnie.csv")
+      d3.csv("./resources/dataMarnie.csv?v1")
         .then(function(data) {
           huntData = data;
           canvas = d3.select("#canvas");
@@ -197,7 +197,7 @@
           .transition()
             .delay(delay)
             .style("opacity", 1)
-            .each(function() { this.focus(); });
+            .each(function() { if (huntData[clue].type == "maths") this.focus(); });
         answerField.node().addEventListener("keyup", function(event) {
           checkAnswer(event);
         });
@@ -214,12 +214,12 @@
       }
 
       function wrongAnswer() {
+        if (mathsTimer) mathsTimer.stop();
         answerField.node().value = answerField.node().value.toUpperCase();
         answer = answerField.node().value;
         if (answer == huntData[clue].answer) {
           correctAnswer();
         } else {
-          if (huntData[clue].type == "maths") mathsTimer.stop();
           answerField.node().blur();
           canvas.selectAll("*")
             .remove();
@@ -235,7 +235,7 @@
       }
 
       function correctAnswer() {
-        if (huntData[clue].type == "maths") mathsTimer.stop();
+        if (mathsTimer) mathsTimer.stop();
         answerField.node().blur();
         canvas.selectAll("*")
           .remove();

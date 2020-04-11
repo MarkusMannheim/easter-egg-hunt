@@ -197,7 +197,7 @@
           .transition()
             .delay(delay)
             .style("opacity", 1)
-            .each(function() { if (huntData[clue].type == "maths") this.focus(); });
+            .each(function() { if (huntData[clue].type !== "find") this.focus(); });
         answerField.node().addEventListener("keyup", function(event) {
           checkAnswer(event);
         });

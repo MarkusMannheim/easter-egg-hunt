@@ -6,199 +6,40 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-155991615-1');
+      gtag("js", new Date());
+      gtag("config", "UA-155991615-1");
     </script>
-    <!-- my stuff -->
+
+    <!-- metaphysics -->
     <meta charset="utf-8">
-    <title>Easter hunt</title>
-    <meta name="description" content="Markus Mannheim's marvelous Easter egg hunt.">
-    <meta name="keywords" content="canberra, act, easter, eggs, treasure, hunt, niko, alice, marnie">
+    <title>Mannheim Easter Egg Hunt</title>
     <meta name="author" content="Markus Mannheim">
+    <meta name="keywords" content="easter, egg, hunt, hackett, canberra, act">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Initial scripts -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <link href="./resources/style.css?v1 rel="stylesheet">
-    <link href="./resources/favIcon.png" rel="icon">
+
+    <!-- scripts -->
+    <script src="./resources/d3.v7.min.js"></script>
+    <link href="./resources/style.css" rel="stylesheet">
+    <link href="./images/favIcon.png" rel="icon">
   </head>
 
   <body>
-    <!-- Initial page layout -->
-    <div id="canvas"></div>
+    <div id="container"></div>
 
     <script>
-      d3.csv("./resources/data.csv")
-        .then(function(data) {
-          huntData = data;
+      // page elements
+      container = d3.select("#container");
 
-          canvas = d3.select("#canvas");
-          window.addEventListener("resize", resize);
-          green = "#3F681C";
-          blue = "#375E97";
-          orange = "#FB6542";
-          gold = "#FFBB00";
-          resize();
-          launch();
-        });
+      user = new URL(window.location.href).searchParams.get("user");
 
-      function addTitle(text) {
-        canvas.append("h1")
-          .text(text);
-      }
-
-      function addPara(text, delay) {
-        canvas.append("p")
-          .html(text)
-          .transition()
-            .delay(delay)
-            .style("opacity", 1);
-      }
-
-      function launch() {
-        fadeIn();
-        addTitle("Alice's egg");
-        egg = canvas
-          .append("div")
-            .attr("id", "egg")
-            .on("click", function() {
-              fadeOut();
-              d3.timeout(function() {
-                instructions();
-              }, 2000);
-            });
-        d3.xml("./resources/egg.svg")
-          .then(function(xml) {
-            egg.node()
-              .appendChild(xml.documentElement);
-            egg.select("#egg svg")
-              .attr("width", width);
-            eggRepeat();
-            function eggRepeat() {
-              egg.transition()
-                .duration(2000)
-                .ease(d3.easeLinear)
-                .styleTween("fill", function() {
-                  return function(t) {
-                    return d3.interpolateRainbow(t);
-                  };
-                })
-                .on("end", eggRepeat);
-            }
-          });
-      };
-
-      function resize() {
-        width = parseFloat(canvas.style("width"));
-        height = parseFloat(canvas.style("height"));
-      }
-
-      function fadeIn() {
-        canvas.transition()
-          .duration(2000)
-          .style("opacity", 1);
-      }
-
-      function fadeOut() {
-        canvas.transition()
-          .duration(2000)
-          .style("opacity", 0);
-        d3.timeout(function() {
-          canvas.selectAll("*")
-            .remove();
-        }, 2000);
-      }
-
-      function addNext(text, delay, nextFunction) {
-        canvas.append("div")
-          .classed("next", true)
-          .text(text)
-          .on("click", function() {
-            fadeOut();
-            d3.timeout(function() {
-              nextFunction();
-            }, 2000);
-          })
-          .transition()
-            .delay(delay)
-            .style("opacity", 1);
-      }
-
-      function instructions() {
-        fadeIn();
-        addTitle("Instructions");
-        addPara("You must pass several challenges to prove you are worthy of your egg.", 2000);
-        addPara("You may struggle. You may falter.", 4000);
-        addPara("You will need strength, smarts ... and a steely resolve.", 6000);
-        addNext("ARE YOU READY?", 8000, finalInstructions);
-      }
-
-      function finalInstructions() {
-        fadeIn();
-        addTitle("Your tokens");
-        addPara("Some clues are hidden.", 2000);
-        addPara("They will look like this: a token with your name and a code to unlock the next clue.", 4000);
-        canvas.append("div")
-          .style("opacity", 0)
-          .attr("id", "token")
-          .transition()
-            .delay(6000)
-            .style("opacity", 1);
-        canvas.select("#token")
-          .append("p")
-            .html("Alice's egg<br>6JK");
-        clue = 0;
-        addNext("BEGIN MY QUEST!", 8000, checkClue);
-      }
-
-      function checkClue() {
-        if (huntData[clue].type == "maths") {
-          maths();
+      if (document.fonts.status == "loaded") {
+        console.log("fonts loaded");
+      } else {
+        document.fonts.onloadingdone = function() {
+          console.log("fonts loaded second attempt");
         }
       }
 
-      function maths() {
-        fadeIn();
-        addTitle("Maths attack!");
-        addPara("You have <span id='countDown'>15</span> seconds to answer.", 2000);
-        factorOne = 0;
-        while (factorOne % 10 == 0) {
-          factorOne = Math.floor(Math.random() * 87) + 13;
-        }
-        factorTwo = 0;
-        while (factorTwo % 1 == 0) {
-          factorTwo = Math.floor(Math.random() * 100) / 10;
-        }
-        huntData[clue].answer = (factorOne * factorTwo).toString();
-        canvas.append("h2")
-          .text(factorOne + " x " + factorTwo)
-          .transition()
-            .delay(4000)
-            .style("opacity", 1);
-        addInput("tel", 4000);
-      }
-
-      function addInput(type, delay) {
-        answerField = canvas.append("input")
-          .classed("answerField", true)
-          .on("keyup", checkAnswer)
-          .on("change", wrongAnswer)
-          .transition()
-            .delay(delay)
-            .style("opacity", 1);
-      }
-
-      function checkAnswer() {
-        answerField.node().value = answerField.node().value.toUpperCase();
-        console.log(answerField.node().value);
-      }
-
-      function wrongAnswer() {
-        
-      }
-
-      function correctAnswer() {
-
-      }
     </script>
   </body>
 </html>

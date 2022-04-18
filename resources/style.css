@@ -29,14 +29,11 @@ body {
   right: 0;
   overflow: hidden;
 }
-h1, p {
+h1 {
   margin: 0;
   text-align: center;
   color: #50514fff;
-}
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 #container {
   position: absolute;
@@ -73,7 +70,7 @@ h1 {
   cursor: pointer;
 }
 .findMe {
-  margin-top: .5rem;
+  margin-top: .75rem;
   text-align: center;
   text-transform: uppercase;
   text-align: center;
@@ -101,4 +98,21 @@ h1 {
   border-radius: .5rem;
   cursor: pointer;
   font-family: "ABCSansNova-Black", "Arial Black", Helvetica, sans-serif;
+}
+#solveMe {
+  margin-top: .75rem;
+  text-align: center;
+  padding: .25rem .5rem;
+  font-family: "ABCSansNova-Regular", Helvetica, sans-serif;
+  background: #f25f5cff;
+  border-radius: .5rem;
+  font-weight: bold;
+}
+p {
+  color: white;
+  font-size: 1.1rem;
+  margin: 0 0 .5rem 0;
+}
+p:last-child {
+  margin-bottom: 0;
 }

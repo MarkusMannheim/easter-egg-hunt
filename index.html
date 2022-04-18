@@ -12,7 +12,7 @@
 
     <!-- metaphysics -->
     <meta charset="utf-8">
-    <title>Mannheim Easter Egg Hunt</title>
+    <title>Mannheim Easter Hunt</title>
     <meta name="author" content="Markus Mannheim">
     <meta name="keywords" content="easter, egg, hunt, hackett, canberra, act, niko, alice">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,7 +75,7 @@
           .attr("src", "./images/" + image + ".jpg");
         container.append("div")
           .attr("id", "solveMe")
-          .text(question);
+          .html(question);
         answerField();
       }
 
@@ -103,10 +103,10 @@
           dragRotate: false,
           touchZoomRotate: false,
           attributionControl: false,
-          center: [149.16006926071202, -35.25194393467503]
+          center: [lng, lat]
         });
         marker = new mapboxgl.Marker()
-          .setLngLat([149.16006926071202, -35.25194393467503])
+          .setLngLat([lng, lat])
           .addTo(map);
         container.append("div")
           .classed("findMe selected", true)
@@ -116,7 +116,7 @@
           .classed("findMe", true)
           .text("Go back to the photo")
           .on("click", toggleClue);
-        answerField();
+        if (stage !== "13") answerField();
       }
 
       function toggleClue() {
@@ -133,7 +133,8 @@
         // title/splash page
         console.log("splash()");
         container.append("h1")
-          .text("The egg hunt");
+          .html("The Mannheim<br>Easter egg hunt")
+          .style("margin-bottom", "3rem");
         function eggColour() {
           console.log("eggColour()");
           egg.transition()
@@ -165,7 +166,7 @@
               window.location.href = "./?stage=" + (+stage + 1);
             });
         next.transition()
-          .duration(2000)
+          .duration(1000)
           .style("opacity", 1);
       }
 
@@ -175,7 +176,13 @@
         textField = container
           .append("input")
             .attr("id", "textField")
-            .attr("placeholder", "Enter answer here")
+            .attr("placeholder", function() {
+              if (type == "find") {
+                return "Enter code here";
+              } else {
+                return "Enter answer here";
+              }
+            })
             .attr("type", format)
             .on("keyup", checkAnswer);
         textField.node().focus();
@@ -184,8 +191,12 @@
       function checkAnswer() {
         // listens for and checks answer
         console.log("checkAnswer()");
-        if (textField.property("value") == answer) {
-          textField.attr("disabled", true);
+        if (textField.property("value").toLowerCase() == answer) {
+          textField.attr("disabled", true)
+            .transition()
+              .duration(1000)
+              .style("opacity", 0)
+              .remove();
           addNext();
         };
       }

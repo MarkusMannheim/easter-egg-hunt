@@ -162,7 +162,7 @@
             .attr("id", "next")
             .html("NEXT &#9654")
             .on("click", function() {
-              window.location.href = "/index.html?stage=" + (+stage + 1);
+              window.location.href = "?stage=" + (+stage + 1);
             });
         next.transition()
           .duration(2000)

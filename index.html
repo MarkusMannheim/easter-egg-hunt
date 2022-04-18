@@ -14,30 +14,180 @@
     <meta charset="utf-8">
     <title>Mannheim Easter Egg Hunt</title>
     <meta name="author" content="Markus Mannheim">
-    <meta name="keywords" content="easter, egg, hunt, hackett, canberra, act">
+    <meta name="keywords" content="easter, egg, hunt, hackett, canberra, act, niko, alice">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- scripts -->
     <script src="./resources/d3.v7.min.js"></script>
     <link href="./resources/style.css" rel="stylesheet">
     <link href="./images/favIcon.png" rel="icon">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
   </head>
 
   <body>
     <div id="container"></div>
 
     <script>
-      // page elements
+      // elements and variables
       container = d3.select("#container");
-
-      user = new URL(window.location.href).searchParams.get("user");
+      stage = new URL(window.location.href).searchParams.get("stage");
+      colourCycle = ["#f25f5cff", "#ffe066ff", "#247ba0ff", "#70c1b3ff"];
 
       if (document.fonts.status == "loaded") {
-        console.log("fonts loaded");
+        start();
       } else {
-        document.fonts.onloadingdone = function() {
-          console.log("fonts loaded second attempt");
+        document.fonts.onloadingdone = start();
+      }
+
+      function start() {
+        // load data, make page visible, begin hunt
+        console.log("startPage() for stage " + stage);
+        d3.select("body")
+          .style("opacity", 1);
+        d3.csv("./resources/answers.csv")
+          .then(function(data) {
+            answer = data[+stage]["answer"];
+            type = data[+stage]["type"];
+            format = data[+stage]["format"];
+            image = data[+stage]["image"];
+            lng = +data[+stage]["lng"];
+            lat = +data[+stage]["lat"];
+            question = data[+stage]["question"];
+            answer = data[+stage]["answer"];
+            if (type == "splash") {
+              splash();
+            } else if (type == "find") {
+              findMe();
+            } else if (type == "solve") {
+              solveMe();
+            }
+          });
+      }
+
+      function solveMe() {
+        // riddles and maths
+        console.log("solveMe()");
+        height = document.getElementById("container").getBoundingClientRect().width + "px";
+        container.append("h1")
+          .text("Solve me");
+        container.append("img")
+          .attr("src", "./images/" + image + ".jpg");
+        container.append("div")
+          .attr("id", "solveMe")
+          .text(question);
+        answerField();
+      }
+
+      function findMe() {
+        // location/map page
+        console.log("findMe()");
+        height = document.getElementById("container").getBoundingClientRect().width + "px";
+        container.append("h1")
+          .text("Find me");
+        container.append("div")
+          .classed("frame selected", true)
+          .style("background-image", function() { return "url('./images/" + image + ".jpg'"; })
+          .style("background-size", "cover")
+          .style("height", height);
+        container.append("div")
+          .classed("frame", true)
+          .attr("id", "mapFrame")
+          .style("height", height);
+        mapboxgl.accessToken = "pk.eyJ1IjoibmV3cy1vbjFpbmUiLCJhIjoiR3FlZFZlVSJ9._30EFE9XYhQitqf4gzRG-g";
+        map = new mapboxgl.Map({
+          container: "mapFrame",
+          style: "mapbox://styles/mapbox/outdoors-v11",
+          zoom: 17,
+          pitchWithRotate: false,
+          dragRotate: false,
+          touchZoomRotate: false,
+          attributionControl: false,
+          center: [149.16006926071202, -35.25194393467503]
+        });
+        marker = new mapboxgl.Marker()
+          .setLngLat([149.16006926071202, -35.25194393467503])
+          .addTo(map);
+        container.append("div")
+          .classed("findMe selected", true)
+          .text("Want to see a map?")
+          .on("click", toggleClue);
+        container.append("div")
+          .classed("findMe", true)
+          .text("Go back to the photo")
+          .on("click", toggleClue);
+        answerField();
+      }
+
+      function toggleClue() {
+        // switch between clue photo and map
+        console.log("toggleClue()");
+        d3.selectAll(".findMe, .frame")
+          .each(function() {
+            d3.select(this).classed("selected", !d3.select(this).classed("selected"));
+          });
+        map.resize();
+      }
+
+      function splash() {
+        // title/splash page
+        console.log("splash()");
+        container.append("h1")
+          .text("The egg hunt");
+        function eggColour() {
+          console.log("eggColour()");
+          egg.transition()
+            .duration(1000)
+            .style("fill", function() { return colourCycle[colour % 4]; })
+            .on("end", function() {
+              colour = colour + 1;
+              eggColour();
+            });
         }
+        d3.svg("./images/egg.svg")
+          .then(function(svgData) {
+            container.node().append(svgData.documentElement);
+            d3.timeout(addNext, 3000);
+            egg = d3.select("#egg");
+            colour = 1;
+            eggColour();
+          });
+      }
+
+      function addNext() {
+        // adds the next button to change URL
+        console.log("addNext()");
+        next = container
+          .append("div")
+            .attr("id", "next")
+            .html("NEXT &#9654")
+            .on("click", function() {
+              window.location.href = "http://localhost:8000/index.html?stage=" + (+stage + 1);
+            });
+        next.transition()
+          .duration(2000)
+          .style("opacity", 1);
+      }
+
+      function answerField() {
+        // adds the answer input field
+        console.log("answerField()");
+        textField = container
+          .append("input")
+            .attr("id", "textField")
+            .attr("placeholder", "Enter answer here")
+            .attr("type", format)
+            .on("keyup", checkAnswer);
+        textField.node().focus();
+      }
+
+      function checkAnswer() {
+        // listens for and checks answer
+        console.log("checkAnswer()");
+        if (textField.property("value") == answer) {
+          textField.attr("disabled", true);
+          addNext();
+        };
       }
 
     </script>

@@ -1,0 +1,5 @@
+type,format,image,lng,lat,question,answer
+"splash",,,,,,
+"find","tel","dummy",149.16006926071202,-35.25194393467503,,"9899"
+"solve","text","riddle",,,,"answer"
+"solve","tel","maths",,,,"answer"

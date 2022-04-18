@@ -1,18 +1,25 @@
+/* colours */
+--davys-grey: #50514fff;
+--orange-red-crayola: #f25f5cff;
+--naples-yellow: #ffe066ff;
+--cg-blue: #247ba0ff;
+--green-sheen: #70c1b3ff;
+
 @font-face {
-  font-family: "ABCSans Regular";
+  font-family: "ABCSansNova-Regular";
   font-style: normal;
   font-weight: normal;
-  src: local("ABCSans Regular"), url("./fonts/abcsans-regular.woff") format("woff");
+  src: local("ABCSansNova-Regular"), url("../fonts/ABCSansNova-Regular.otf") format("woff");
 }
 @font-face {
-  font-family: "ABCSans Black";
+  font-family: "ABCSansNova-Black";
   font-style: normal;
   font-weight: normal;
-  src: local("ABCSans Black"), url("./fonts/abcsans-black.woff") format("woff");
+  src: local("ABCSansNova-Black"), url("../fonts/ABCSansNova-Black.otf") format("woff");
 }
 :root {
   font-size: 1em;
-  font-family: "ABCSans Regular", "Arial", sans-serif;
+  font-family: "ABCSansNova-Black", "Arial Black", Helvetica, sans-serif;
 }
 body {
   position: fixed;
@@ -20,7 +27,78 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
+  overflow: hidden;
 }
-h1 p {
+h1, p {
   margin: 0;
+  text-align: center;
+  color: #50514fff;
+}
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+#container {
+  position: absolute;
+  top: 1.5rem;
+  bottom: .5rem;
+  left: .5rem;
+  right: .5rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: top;
+}
+#egg {
+  fill: #f25f5cff;
+}
+.frame {
+  border: solid 2px #50514fff;
+  display: none;
+}
+.frame.selected {
+  display: block;
+}
+#next {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-size: 1.5rem;
+  text-align: center;
+  padding: .25rem 1rem;
+  color: white;
+  background: #247ba0ff;
+  border-radius: .5rem;
+  opacity: 0;
+  cursor: pointer;
+}
+.findMe {
+  margin-top: .5rem;
+  text-align: center;
+  text-transform: uppercase;
+  text-align: center;
+  padding: .25rem;
+  color: white;
+  font-weight: bold;
+  font-family: "ABCSansNova-Regular", Helvetica, sans-serif;
+  background: #f25f5cff;
+  border-radius: .5rem;
+  cursor: pointer;
+  display: none;
+}
+.findMe.selected {
+  display: block;
+}
+#textField {
+  margin-top: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  text-align: center;
+  padding: .25rem;
+  color: #50514fff;
+  background: #ffe066ff;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-family: "ABCSansNova-Black", "Arial Black", Helvetica, sans-serif;
 }

@@ -1,5 +1,15 @@
 type,format,image,lng,lat,question,answer
 "splash",,,,,,
-"find","tel","dummy",149.16006926071202,-35.25194393467503,,"9899"
-"solve","text","riddle",,,,"answer"
-"solve","tel","maths",,,,"answer"
+"find","tel","seat",149.16250805421637,-35.25176655227398,,"999"
+"solve","text","riddle",,,"I have hands and a face but no arms. I am a …,"clock"
+"find","tel","fountain",149.16008781009702,-35.251948526505956,,"999"
+"solve","text","maths",,,"3y(2–x)=3xy+2x","3y"
+"find","tel","graffiti",149.16204776801163,-35.2519710895862,,"999"
+"solve","text","riddle",,,"Jack's dad has three sons. One is John, one is Josh. The third son's name is …,"jack"
+"find","tel","sign",149.16204709867188,-35.250652880416624,,"999"
+"solve","text","maths",,,"3y(2–x)=3xy+2x","3y"
+"find","tel","kookaburra",149.16028838800682,-35.25208131790174,,"999"
+"solve","text","riddle",,,"It's mine but everyone else uses it much more than me. It is my …,"name"
+"find","tel","goalpost",149.1602230285078,-35.251098488723535,,"999"
+"solve","text","maths",,,"3y(2–x)=3xy+2x","3y"
+"find","tel","home",149.16238107157162,-35.25210292440902,,"999"

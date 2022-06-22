@@ -19,6 +19,7 @@
 
     <!-- scripts -->
     <script src="./resources/d3.v7.min.js"></script>
+    <script src="./config.js"></script>
     <link href="./resources/style.css" rel="stylesheet">
     <link href="./images/favIcon.png" rel="icon">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
@@ -94,7 +95,7 @@
           .classed("frame", true)
           .attr("id", "mapFrame")
           .style("height", height);
-        mapboxgl.accessToken = "pk.eyJ1IjoibmV3cy1vbjFpbmUiLCJhIjoiR3FlZFZlVSJ9._30EFE9XYhQitqf4gzRG-g";
+        mapboxgl.accessToken = config.mapBoxKey;
         map = new mapboxgl.Map({
           container: "mapFrame",
           style: "mapbox://styles/mapbox/outdoors-v11",
